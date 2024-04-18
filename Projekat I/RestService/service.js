@@ -29,7 +29,7 @@ var client = new smartCitiesService(
 app.get("/cities/:id", async (req, res) => {
   try {
     const cityId = req.params.id;
-    // Pozivamo odgovarajuću metodu iz gRPC servisa
+
     client.GetCity({ id: cityId }, (err, response) => {
       if (err) {
         console.error("Greška prilikom poziva gRPC metode:", err);
@@ -48,7 +48,6 @@ app.get("/cities/:id", async (req, res) => {
 
 app.get("/cities", async (req, res) => {
   try {
-    // Pozivamo odgovarajuću metodu iz gRPC servisa
     client.GetAllCities({}, (err, response) => {
       if (err) {
         console.error("Greška prilikom poziva gRPC metode:", err);
@@ -65,7 +64,6 @@ app.get("/cities", async (req, res) => {
   }
 });
 
-// Metoda za dodavanje novog grada
 app.post("/cities", async (req, res) => {
   try {
     const cityData = {
@@ -82,16 +80,15 @@ app.post("/cities", async (req, res) => {
         req.body.smartcity_index_relative_edmonton,
     };
 
-    // Pozivamo odgovarajuću metodu iz gRPC servisa za dodavanje grada
     client.AddCity(cityData, (err, response) => {
       if (err) {
         console.error("Greška prilikom poziva gRPC metode:", err);
         res.status(500).json({ error: "Greška prilikom dodavanja grada" });
         return;
       }
-      // Odgovor gRPC metode treba da sadrži identifikator novododatog grada
+
       const newCityId = response.id;
-      res.json({ id: newCityId }); // Vraćamo ID novododatog grada kao odgovor
+      res.json({ id: newCityId });
     });
   } catch (error) {
     console.error("Greška prilikom obrade zahteva:", error);
@@ -99,12 +96,11 @@ app.post("/cities", async (req, res) => {
   }
 });
 
-// Metoda za ažuriranje postojećeg grada
 app.put("/cities/:id", async (req, res) => {
   try {
     const cityId = req.params.id;
     const cityData = req.body;
-    // Pozivamo odgovarajuću metodu iz gRPC servisa
+
     client.UpdateCity({ id: cityId, ...cityData }, (err, response) => {
       if (err) {
         console.error("Greška prilikom poziva gRPC metode:", err);
@@ -121,11 +117,10 @@ app.put("/cities/:id", async (req, res) => {
   }
 });
 
-// Metoda za brisanje grada
 app.delete("/cities/:id", async (req, res) => {
   try {
     const cityId = req.params.id;
-    // Pozivamo odgovarajuću metodu iz gRPC servisa
+
     client.DeleteCity({ id: cityId }, (err, response) => {
       if (err) {
         console.error("Greška prilikom poziva gRPC metode:", err);
@@ -142,7 +137,6 @@ app.delete("/cities/:id", async (req, res) => {
   }
 });
 
-// Pokretanje servera na određenom portu
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server je pokrenut na portu ${port}`);
