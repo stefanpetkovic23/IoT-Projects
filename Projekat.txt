@@ -1,0 +1,29 @@
+ConnectionName: IoT-SmartCities
+hostname: 127.0.0.1 port:3306
+username: root
+password: root
+
+dodavanje podataka u bazu : 
+LOAD DATA LOCAL INFILE 'C:/Users/Stefan/Desktop/Faks/IoT/Smart_City_index_headers.csv'
+INTO TABLE smartcities
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+
+kreiranje tabele u bazi :
+USE smart_cities;
+CREATE TABLE IF NOT EXISTS SmartCities (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    City VARCHAR(255),
+    Country VARCHAR(255),
+    Smart_Mobility FLOAT,
+    Smart_Environment FLOAT,
+    Smart_Government FLOAT,
+    Smart_Economy FLOAT,
+    Smart_People FLOAT,
+    Smart_Living FLOAT,
+    SmartCity_Index FLOAT,
+    SmartCity_Index_relative_Edmonton FLOAT
+);

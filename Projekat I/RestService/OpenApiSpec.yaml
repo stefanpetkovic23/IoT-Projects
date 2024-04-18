@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: Node REST API Specifikacija
+  version: 1.0.0
+  description: Specifikacija za Node REST API server
+servers:
+  - url: http://localhost:3000
+    description: Lokalni server
+paths:
+  /cities/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: ID grada
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Dobijanje podataka o gradu
+      responses:
+        "200":
+          description: Uspešno dobijeni podaci
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/City"
+        "500":
+          description: Greška prilikom dobijanja podataka
+    put:
+      summary: Ažuriranje podataka o gradu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/City"
+      responses:
+        "200":
+          description: Uspešno ažurirani podaci
+        "500":
+          description: Greška prilikom ažuriranja podataka
+    delete:
+      summary: Brisanje podataka o gradu
+      responses:
+        "200":
+          description: Uspešno obrisani podaci
+        "500":
+          description: Greška prilikom brisanja podataka
+  /cities:
+    get:
+      summary: Dobijanje svih gradova
+      responses:
+        "200":
+          description: Uspešno dobijeni podaci
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/City"
+        "500":
+          description: Greška prilikom dobijanja podataka
+    post:
+      summary: Dodavanje novog grada
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/City"
+      responses:
+        "200":
+          description: Uspešno dodat novi grad
+        "500":
+          description: Greška prilikom dodavanja grada
+components:
+  schemas:
+    City:
+      type: object
+      properties:
+        id:
+          type: integer
+        city:
+          type: string
+        country:
+          type: string
+        smart_mobility:
+          type: number
+        smart_environment:
+          type: number
+        smart_government:
+          type: number
+        smart_economy:
+          type: number
+        smart_people:
+          type: number
+        smart_living:
+          type: number
+        smartcity_index:
+          type: number
+        smartcity_index_relative_edmonton:
+          type: number

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package smart_cities;
+
+option csharp_namespace = "SmartCitiesGrpc";
+
+
+
+service SmartCitiesService {
+
+    rpc GetAllCities (Empty) returns (CityList) {}
+
+    rpc GetCity (CityId) returns (City) {}
+
+    rpc AddCity (City) returns (CityId) {}
+
+    rpc UpdateCity (City) returns (City) {}
+
+    rpc DeleteCity (CityId) returns (Empty) {}
+
+    rpc GetSmartMobilityStats (Empty) returns (SmartStats) {}
+    rpc GetSmartEnvironmentStats (Empty) returns (SmartStats) {}
+    rpc GetSmartGovernmentStats (Empty) returns (SmartStats) {}
+    rpc GetSmartEconomyStats (Empty) returns (SmartStats) {}
+    rpc GetSmartPeopleStats (Empty) returns (SmartStats) {}
+    rpc GetSmartLivingStats (Empty) returns (SmartStats) {}
+    rpc GetSmartCityIndexStats (Empty) returns (SmartStats) {}
+}
+
+message City {
+    int32 id = 1;
+    string city = 2;
+    string country = 3;
+    float smart_mobility = 4;
+    float smart_environment = 5;
+    float smart_government = 6;
+    float smart_economy = 7;
+    float smart_people = 8;
+    float smart_living = 9;
+    float smartcity_index = 10;
+    float smartcity_index_relative_edmonton = 11;
+}
+
+message CityId {
+    int32 id = 1;
+}
+
+message CityList {
+    repeated City cities = 1;
+}
+
+message Empty {}
+
+message SmartStats {
+    float min = 1;
+    float max = 2;
+    float avg = 3;
+    float sum = 4;
+}
